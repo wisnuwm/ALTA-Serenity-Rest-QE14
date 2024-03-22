@@ -1,5 +1,5 @@
 package starter.stepdef;
 
-public class SingleUser {
+public class RegisterUserStepDef {
     //tambahkan step definition dari endpoint berikut
 }

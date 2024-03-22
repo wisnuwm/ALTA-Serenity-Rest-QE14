@@ -4,6 +4,8 @@ Feature: Serenity Rest QE 14
     Given Get list user with parameter page <page>
     When Send request get list users
     Then Status code should be 200
+    And Response body page should be <page>
+    And Validate json schema "ListUsersJsonSchema.json"
     Examples:
       |page|
       |1   |
@@ -13,16 +15,19 @@ Feature: Serenity Rest QE 14
     Given Create user with valid json "CreateUser.json"
     When Send request create new user
     Then Status code should be 201
+    And Response body name should be "Wisnu Munawar" and job is "QA Engineer"
+    And Validate json schema "CreateUserJsonSchema.json"
   @Latihan
   Scenario Outline: Update user with valid json and user id
     Given Update user with valid json "<json>" and user id <id>
     When Send request update user
     Then Status code should be 200
+    And Response body name should be "<name>" and job is "<job>"
     Examples:
-      |id|json             |
-      |1 |UpdateUser1.json |
-      |2 |UpdateUser2.json |
-      |3 |UpdateUser3.json |
+      |id|json             |name                  |job                  |
+      |1 |UpdateUser1.json |Wisnu Munawar Update 1|QA Engineer Update 1 |
+      |2 |UpdateUser2.json |Wisnu Munawar Update 2|QA Engineer Update 2 |
+      |3 |UpdateUser3.json |Wisnu Munawar Update 3|QA Engineer Update 3 |
   @Latihan
   Scenario: Delete user with valid user id
     Given Delete user with user id 2

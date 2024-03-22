@@ -1,14 +1,17 @@
 package starter.stepdef;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Steps;
 import starter.reqres.ReqresAPI;
+import starter.reqres.ReqresResponses;
 import starter.utils.Constants;
 
 import java.io.File;
+import static org.hamcrest.Matchers.equalTo;
 
 public class ReqresStepDef {
     @Steps
@@ -27,10 +30,16 @@ public class ReqresStepDef {
                 .get(ReqresAPI.LIST_USERS);
     }
 
-    @Then("Status code should be {int}")
-    public void statusCodeShouldBe(int statusCode) {
-        SerenityRest.then()
-                .statusCode(statusCode);
+//    @Then("Status code should be {int}")
+//    public void statusCodeShouldBe(int statusCode) {
+//        SerenityRest.then()
+//                .statusCode(statusCode);
+//    }
+
+    @And("Response body page should be {int}")
+    public void responseBodyPageShouldBePage(int page) {
+        SerenityRest.and()
+                .body(ReqresResponses.PAGE,equalTo(page));
     }
 
     //Scenario 2
@@ -44,6 +53,13 @@ public class ReqresStepDef {
     public void sendRequestCreateNewUser() {
         SerenityRest.when().post(ReqresAPI.CREATE_USER);
     }
+
+//    @And("Response body name should be {string} and job is {string}")
+//    public void responseBodyNameShouldBeAndJobIs(String name, String job) {
+//        SerenityRest.and()
+//                .body(ReqresResponses.NAME,equalTo(name))
+//                .body(ReqresResponses.JOB,equalTo(job));
+//    }
 
     //Scenario 3
     @Given("Update user with valid json {string} and user id {int}")
